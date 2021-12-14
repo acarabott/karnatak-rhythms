@@ -1,3 +1,7 @@
+/* 
+	Various algorithms, implemented as functions, and later converted to class methods
+ */
+ 
 ~toFill = 1.5;
 
 ~spaceFill = {|space, gati|
