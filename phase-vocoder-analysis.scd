@@ -1,3 +1,5 @@
+// This file is used to do phase vocoder analysis of all audio files and store the result in matching .scpv files
+
 (
 	SynthDef("pvrec", { arg bufnum=0, recBuf=1, soundBufnum=2;
 		var in, chain;
