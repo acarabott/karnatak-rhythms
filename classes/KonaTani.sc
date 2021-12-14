@@ -24,7 +24,7 @@ KonaTani {
 	var <buffers;		//	Buffers for scpv files
 	var <talaRout;		//	Routine for tala clapping
 	var <pRout;			//	Routine for playback;
-	var <mOut;			//	MIDIOut
+	var <>mOut;			//	MIDIOut
 
 
 	*initClass {
@@ -116,7 +116,7 @@ KonaTani {
 
 		//Buffers for PV analysis files
 		buffers=Array.newClear(syls.size);
-		buffers.size.do({|i| buffers[i] = Buffer.read(s, "sounds/Solkattu/"++syls[i]++".wav.scpv")});
+		buffers.size.do({|i| buffers[i] = Buffer.read(s, Platform.userExtensionDir +/+ "karnatak-rhythms/samples/"++syls[i]++".wav.scpv")});
 
 		//FFT Buffers and Routine
 		fftBuff=fftBuffArray[0];
@@ -128,8 +128,8 @@ KonaTani {
 		});
 
 		//MIDI
-		MIDIClient.init(1,1);
-		mOut = MIDIOut.newByName("IAC Driver", "Bus 1");
+		// MIDIClient.init(1,1);
+		// mOut = MIDIOut.newByName("IAC Driver", "Bus 1");
 
 	}
 

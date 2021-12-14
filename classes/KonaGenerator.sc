@@ -79,7 +79,7 @@ KonaGenerator {
 		//Ensure against floats.
 		n = aNum.asInteger;
 		min = aMin.asInteger;
-		readFunc = {|val| Object.readArchive(Platform.userExtensionDir++"/FYPClasses/partitions/"++val.asString)};
+		readFunc = {|val| Object.readArchive(Platform.userExtensionDir++"/karnatak-rhythms/partitions/"++val.asString)};
 
 		case
 			//There are no partitions of 1

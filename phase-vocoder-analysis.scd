@@ -25,7 +25,7 @@ s.boot
 ~syls = Array.with("Tam", "Ta", "Ka", "Ki", "Tah", "Di", "Mi", "Da", "Gi", "Na", "Dom", "-", "Ju", "Lan", "Gu", "Tom", "Nam", "Ri", "Du", "Din");
 p = Array.newClear(~syls.size);
 // path to a sound file here
-p.size.do({|i| p[i]= "sounds/Solkattu/"++~syls[i]++".wav"});
+p.size.do({|i| p[i]= Platform.userExtensionDir +/+ "karnatak-rhythms/samples/"++~syls[i]++".wav"});
 // the frame size for the analysis - experiment with other sizes (powers of 2)
 f = 1024; 
 // the hop size
@@ -74,11 +74,11 @@ x[0]
 h[3].plot
 ~fftBuff =Buffer.alloc(s, 1024);
 y[0].plot
-y[0].write("sounds/solkattu/boomboom.scpv", "wav", "float32")
-o = Buffer.read(s, "sounds/solkattu/boomboom.scpv")
+y[0].write(Platform.userExtensionDir +/+ "karnatak-rhythms/samples/boomboom.scpv", "wav", "float32")
+o = Buffer.read(s, Platform.userExtensionDir +/+ "karnatak-rhythms/samples/boomboom.scpv")
 o.plot
 y[0].plot
 b = Synth("pvplay", [\out, 0, \bufnum, ~fftBuff, \recBuf, ~bufs[4]]);
 h[0].numFrames
-q = Buffer.read(s, "sounds/Solkattu/Tam.wav")
+q = Buffer.read(s, Platform.userExtensionDir +/+ "karnatak-rhythms/samples/Tam.wav")
 q

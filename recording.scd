@@ -27,7 +27,7 @@ r=Routine.new({
 })
 
 ~syls.size.do({|i|
-	~bufs[i].write("sounds/Solkattu/"++~syls[i]++".wav", "WAV", "int16");
+	~bufs[i].write(Platform.userExtensionDir +/+ "karnatak-rhythms/samples/"++~syls[i]++".wav", "WAV", "int16");
 })
 
 b = {Buffer.alloc(s, (48000/2))}
@@ -38,7 +38,7 @@ b = {Buffer.alloc(s, (48000/2))}
 	~bufs[i] = b.();
 })
 ~bufs.size.do({|i|
-	~bufs[i] = Buffer.read(s, "sounds/Solkattu/"++~syls[i]++".wav")
+	~bufs[i] = Buffer.read(s, Platform.userExtensionDir +/+ "karnatak-rhythms/samples/"++~syls[i]++".wav")
 })
 
 SynthDef(\takaPlay, { arg out=0,bufnum=0;
