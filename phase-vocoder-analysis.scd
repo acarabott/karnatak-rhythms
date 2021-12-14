@@ -68,17 +68,3 @@ z = Array.newClear(~syls.size);
 ~syls.size.do { |i|
 	~bufs[i] = Buffer.read(s, p[i]++".scpv");
 }
-
-~bufs[0].plot
-x[0]
-h[3].plot
-~fftBuff =Buffer.alloc(s, 1024);
-y[0].plot
-y[0].write(Platform.userExtensionDir +/+ "karnatak-rhythms/samples/boomboom.scpv", "wav", "float32")
-o = Buffer.read(s, Platform.userExtensionDir +/+ "karnatak-rhythms/samples/boomboom.scpv")
-o.plot
-y[0].plot
-b = Synth("pvplay", [\out, 0, \bufnum, ~fftBuff, \recBuf, ~bufs[4]]);
-h[0].numFrames
-q = Buffer.read(s, Platform.userExtensionDir +/+ "karnatak-rhythms/samples/Tam.wav")
-q
