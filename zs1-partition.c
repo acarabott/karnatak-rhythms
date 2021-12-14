@@ -1,3 +1,23 @@
+/* 
+integer partitioning algorithm, implemented from 
+
+Fast Algorithms for Generating Integer Partitions by Antoine Zoghbi and Ivan Stojmenovic
+https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.42.1287&rep=rep1&type=pdf
+
+
+## Compiling
+
+should compile with any C compiler, e.g.
+```
+$ clang zs1-partition.c
+```
+
+will generate a.out (default name)
+
+## Usage (all partitions of 10)
+./a.out 10
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 
