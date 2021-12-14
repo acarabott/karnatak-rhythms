@@ -143,7 +143,7 @@ KonaWord {
 							if(i==0)
 								{note = 48; vel = ((70..100).choose+accent).min(127)}
 								{note = 52; vel = (100+accent).min(127)};
-							tani.mOut.noteOn(0, note, vel);
+							if(tani.midiOut != nil) { tani.midiOut.noteOn(0, note, vel); };
 								if(i==0) {
 									word[i].post;
 								} {
@@ -152,7 +152,7 @@ KonaWord {
 							" ".post;
 							speed.post; " ".post;
 							speed.wait;
-							tani.mOut.noteOff(0, note, vel);
+							if(tani.midiOut != nil) { tani.midiOut.noteOff(0, note, vel); };
 						} {
 							word[i].post; " ".post;
 							speed.post; " ".post;
@@ -189,10 +189,10 @@ KonaWord {
 								word[i].asString.toLower.post; " ".post;
 								
 							};
-							tani.mOut.noteOn(0, note, vel);
+							if(tani.midiOut != nil) { tani.midiOut.noteOn(0, note, vel); };
 							speed.post; " ".post;
 							speed.wait;
-							tani.mOut.noteOff(0, note, vel);
+							if(tani.midiOut != nil) { tani.midiOut.noteOff(0, note, vel); };
 						} {
 							word[i].post; " ".post;
 							speed.post; " ".post;

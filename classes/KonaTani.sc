@@ -24,7 +24,7 @@ KonaTani {
 	var <buffers;		//	Buffers for scpv files
 	var <talaRout;		//	Routine for tala clapping
 	var <pRout;			//	Routine for playback;
-	var <>mOut;			//	MIDIOut
+	var <>midiOut;		//	MIDIOut
 
 
 	*initClass {
@@ -126,10 +126,6 @@ KonaTani {
 				0.yield;
 			})
 		});
-
-		//MIDI
-		// MIDIClient.init(1,1);
-		// mOut = MIDIOut.newByName("IAC Driver", "Bus 1");
 
 	}
 
