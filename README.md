@@ -1,6 +1,6 @@
 # Computer Representation and Generation of Karnatak Rhythms
 
-[SuperCollider](https://supercollider.github.io/) Code from my 2009 [undergraduate dissertation](https://www.arthurcarabott.com/assets/projects/konnakkol/dissertation.pdf) _Computer Representation and Generation of
+[SuperCollider](https://supercollider.github.io/) code from my 2009 [undergraduate dissertation](https://www.arthurcarabott.com/assets/projects/konnakkol/dissertation.pdf) _Computer Representation and Generation of
 Karnatak Rhythms_.
 
 ## Installation
@@ -13,11 +13,11 @@ Requires the PV classes from [sc3-plugins](https://supercollider.github.io/sc3-p
 
 ### Partitions >= 40
 
-If you want to use the partitioning algorithm for integers >= 40, you can use the precomputed values in `partitions.zip`, just unzip it.
+If you want to use the partitioning algorithm for integers >= 40, you can use the precomputed values in `partitions.zip`, just unzip it. These were generated in SuperCollider using approach used in `KonaGenerator.allPartitions`, so in theory these binary files don't need to be included. In practice, that code is lost so I've taken the easy way out.
 
 ## Examples
 
-See `example.scd` for example usage with samples and MIDI
+See `examples/basic.scd` for example usage with samples and MIDI. Longer examples are in `examples/turing-test.scd`.
 
 ## Samples
 
@@ -28,3 +28,7 @@ All samples have phase vocoder analysis pre-computed into `.scpv` files. The cod
 
 - [Nick Collins](https://composerprogrammer.com/), my supervisor.
 - Ezio Taeggi for inspiring me to clean this up (slightly) and put it online
+
+## Author
+
+Arthur Carabott
