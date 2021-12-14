@@ -1,0 +1,548 @@
+Final Year Project Log
+
+9/10/08
+Began finding resources. Mostly books relating to Karṇāṭak music. 
+Notable resources 
+'Improvisation and its Guiding principles in percussion playing in South Indian Classical Music'  - Hulzen
+Mṛdaṅgam Mind PHD by David Nelson. A thesis focusing on performing the tani āvartanam on mṛdaṅgam (main percussive instrument).
+Tihai Formulas and the Fusion of "composition" and "improvisation" in North Indian Music. 
+For computational side, mostly academic papers.
+
+16/10/08
+Programmed a tāḷa generator, to create tāḷas by selecting angams (tāḷa building blocks) with various attributes and combining them. Investigated sending messages to Processing for displaying hand claps.
+
+23/10/08
+Further developed tāḷa generator to include two less often used tāḷas khandacapu and misracapu
+
+30/10/08
+
+Listed syllables to record, checked against Lockett, Pesch, Ayyangar, Ganesh, Vinayakram for completeness.
+
+Transcribed 34 bars of Konakkol solo from Ultimate Guru DVD. 
+Notes:
+	May have to re-think not transcribing pitches, seem important
+	Structuring clear
+	Need to use Transcribe! program to be accurate, some passages are very fast.
+	Improvisation often locks in with the underlying groove, e.g. bar 37/38. 
+		Not a strict rule
+	
+
+6/11/08
+Finished Transcription of Selvaganesh Konakkol Improvisation.
+	
+Found a Konakkol + Guitar improvisation on The Gateway to Rhythm DVD, with transcription.
+
+Noted:
+Very often, Konakkol syllables will not stick strictly to those used for basic training. This is especially true at fast tempos, where certain syllables are easier to pronounce than others. There seems to be little in terms of rules for this, and even the basic syllables themselves vary depending on region. The basic syllables are ideal for teaching and explanation. For this reason they will be used  within this project for consistency. The main focus is the generation of rhythms, and variations. Whichever syllables are used, the accents are clear- so rhythmically the generated patterns will be authentic, even if the syllables are not.
+A further revision could look for some patterns in the replacement, and implement them. 
+
+11/11/08
+Starting programming of a variation generator.
+Two simple functions on a rhythmic cell:
+	Rotation
+	Tuplet shift
+ 
+19/11/08
+Began write up of interim report. Produced plan for introduction and began writing an introduction to Karṇāṭak music.
+ 
+22/11/08
+Contacted David Nelson regarding accompanying DVD to his thesis. He also told me his recently published book on Solkattu/Konakkol, guiding the reader through building up to a tani āvartanam, an Ideal resource for this project
+
+23/11/08
+Edited Konakkol syllables to use within supercollider routines.
+Problem that syllables vary  subtley with speed and context. E.g. ' Ka ' of Ta-ka sounds different to 'Ka' of Ta-Ka-Di-Mi
+Overlap when playing slow tempo samples at fast tempos
+Strange silences when playing fast samples at slow tempos
+For now, will just use fast as the the silences are preferable to overlap.
+Eventual possible solutions
+	Use syllables recorded at different tempos
+	Use blocks (taka) - Problem when altering patterns 
+	Depends on final goal, 
+		If it's to model a human then not really a problem as for evaluations the best idea would be to print a 'score' of the tani, and 			have it performed, or at least replace chunks with continuous samples
+		If it's to create a computer performer, then just tailor samples to sound good, without sounding human. as performance may be inhumanly 			complex
+		
+
+27/11/08
+Continued Interim report, introduction to Karṇāṭak music. Covering the particular form ( tani āvartanam) being modelled, and solkaṭṭu (the rhythmic syllables used)
+
+3/12/08
+Finished Introduction to Karṇāṭak music, relating the musical style to the work in this project e.g. noting the selection of syllables I will be using in this project.
+Wrote up plan for the computational side of the introduction, style of program (algorithmic composition, style modelling, wiggins terminology)
+Wrote up professional considerations, particular emphasis on the undertaking of the project and user evaluation.
+
+6-9/12/08
+Finished Interim Report, have a greater sense of direction and approach.
+
+30/12/08
+
+Wrote Konakkol class, a class that represents a basic Konakkol phrase.
+Given a number of syllables, it chooses the correct phrase and has methods to play the phrase back at various speeds, also included a method to play a Gopucca mōrā;
+
+31/12/08
+Tried using PV_PlayBuf for time stretching (especially for faster phrases).
+Some difficulties with saving the FFT analysis and then playing back from there.
+
+12/1/09
+
+Re-wrote SynthDef to use PV_Playbuf for time stretching, also found very useful DetectSilence UGen.
+Solved playback from FFT analysis files.
+Had to separate the file writing into a different routine from the SoundFile creating and buffer allocation, then had to 'call' each buffer (that had read from an FFT file) to get it to work properly.
+
+Changed Konakkol Class to send messages to the server via a NetAddr object instead of creating Synth instances. This allows playback through any Synth sound, or sending messages via MIDI by making changes to the OSCresponder. Will be fun to try the system through drums, drumkits, beatbox instruments, melodic instruments etc...
+
+13/1/09
+
+Gutted Konakkol class of methods that return different speeds and Gopucca Method.
+Implementing arguments when creating instances so that Konakkol class instances have a defined form, which is returned as a Routine. This allows concatenation of Routines.
+
+Will implement methods to return the instance in another form so that variations can be created. e.g. y = x.atDoubleSpeed.
+	Implemented Method atSpeed which returns a new Konakkol object with the same phrase, but with a specified speed.
+
+Realised that I don't need a Gati argument for Konakkol class as Tisra Gati (3 per beat) is just a speed of 1/3. But may be more intuitive to have one that just alters the speed
+
+14/01/09
+
+Started writing KonaPhrase class, (re-named Konakkol class KonaWord).
+Takes an indefinite number of arguments, will be KonaWords. 
+Will be used when a KonaWord (e.g. Ta ka di mi) is altered and requiring new syllables (e.g. Ta - Ta Ka).
+Will also be used as motivic cell.
+
+15/01/09
+
+Made KonaPhrase a subclass of List, to ease adding items and creationg. Tried Array but had problems using instance variables.
+Overwrote add method to only accept KonaWord objects
+Overwrote ++ concatenation method to return a new KonaPhrase
+
+16/01/09
+
+Installed wslib for AutoBackup, SC Crashing at the moment.
+
+Added dur and rout methods to KonaPhrase.
+Added an at method to KonaWord for [index] access to jatis in the word
+
+19/01/09
+
+Added phrase method to konaphrase which returns all the words in the phrase in an array of strings.
+
+Read into sarvalaghu patterns with gati != chatusra (4). Wrote a method return all possible combinations to fill a given time period with values with a minimum size of 2. E.g. input 6 returns [6, [2, 4,], [3,3], [4,2] ]
+
+developed ideas on structure of whole program
+
+Met with Nick Collins. Discussed structure of program
+	Discussed class design
+		Decided not to use OSC messages because of latency
+		should use bundles for rock solid timing
+		auto call init method rather than set up in new method
+	
+	Task is to complete structure classes
+		Nick suggested using a generic 'duration of time' class rather than specific tāḷa etc
+		I feel that the naming will still be useful, especially when printing out compositions, esp for calculations
+		Considering generic class with subclasses just for name.
+
+22/01/09
+
+Working on algorithm to return all possible combinations of groupings for a given grouping.
+
+E.g. 5 would return [5, [3,2], [2,3]]
+
+Hard choices about whether or not to include 1. 
+	There are phrases that are more like 1 1 rather than 2
+		e.g. |na na din - | 	|din - jo no|
+	As well as phrases such as
+	 	|na tom tom ta |tom tom tom ta|
+	
+	Including 1s makes the algorithm very tricky, phrases of 1 1 1 1 1 1 1 are also unlikely.
+	
+	Thoughts
+		-Phrases could be altered later, represented as 2, but sound like 1 1
+			-Or Altered to be 1s, will have to change the sounds anyway.
+			
+23/01/09
+
+Continuing work on partition algorithm. Tried implementing zs1 algorithm, works in C but not sc....
+
+Going back to own method of diving into parts of two.
+Almost there, however, returning an array with all answers + an element with all answers
+
+24/01/09
+
+Successfully Implemented ZS1 algorithm, much faster. However with larger numbers it still runs noticeably slower in SC than C.
+Not completely sure how it works, makes modification difficult. Instead of only generating partitions with certain values (between 2 and 9)
+	-I am simply removing them afterwards
+	-Also generates all permutations of partitions.
+	
+27/01/09
+
+Decided not to have a distinct tala class, but to have a time period class which can return duration
+in beats and talas.
+KonaTime takes the tala as an argument, a literal array of the beats; Adi Tala #[4,2,2]
+
+Considered using KonaTime instead of KonaPhrase, but decided that KonaPhrase is not a time duration
+class, it is a musical block class with musical permutations- simply a class for concats of KonaWords
+
+30/01/09
+
+Started KonaTani class.
+Has following variables
+var <laya;			//	Tempo
+var <tala;			//	Beats in cycle
+var <gati;			//	'Default' sub-divisions per beats
+var <otherGatis;	//	Sub-divisions to change to
+var <eduppu;		//	Starting/strong beat
+var <gen;			//	Material generator
+
+var <duration;		//	Duration in minutes
+var <totalTalas;	//	Total number of cycles
+
+A rough duration can be passed in by the user, a more exact duration is calculated by fitting maximum number of talas into the given
+duration, and multiplying them by the duration of each tala.
+
+02/02/09
+
+Upgraded KonaTime class to replace KonaPhrase;
+
+Moved synth generation from an OSC responder to the KonaWord class.
+Would still like to be able to set up generic output, but maybe just have Konakol synth, kanjira synth, and MIDI out
+Tried to have synth buffers etc as classvars set up with InitClass, but couldn't get it to work, had to use instance variables, not optimal
+
+Analysing Trichy Solo from Nelson DVDs.
+
+03/02/09
+
+Coding re-think.
+
+Moving all alteration methods (e.g. atDensity etc) from KonaWord to KonaTime to avoid duplication, allows manipulation of 
+KonaTime objects rather than just words, or call downs.
+
+Adapting toGati method (change a word/time to a new gati) proved troublesome.
+	No problem for a single KonaWord, but a KonaTime provided a new problem. How to generate phrases in the new gati
+		with the same relative values. e.g. 0.25, 0.25, 0.125, 0.125 in triplets should be 0.33, 0.33, 0.166, 0.166
+		Changed KonaWord from having Gati of any value to being limited to 4,3,5,7,9, but then using expansions (multipliers);
+		E.g. 0.125 is gati 4, expansion 2
+
+Added a postWord method to KonaWord which prints in the following format
+[ Ta, Ka, Di, Mi ]
+[ 0.33, 0.33, 0.33, 0.33 ]
+[ [ 1, 12 ], [ 1, 12 ], [ 1, 12 ], [ 1, 12 ] ]
+
+04/02/09
+
+New priority: Get a working version, then improve it rather than going for gold
+
+Reading material for Sarvalaghu Generation.
+	Hulzen and Prakash for non-Adi Tala material + adapting
+	Nelson + Transcriptions for Adi-Tala
+	
+Will have to adjust playback method. a word could be all rests, or all resonant. e.g. ta-ka played rest rest, or ta din
+
+Page 7 of Analysis 3, shows that Mora design is open for development....
+
+05/02/09
+
+Completed basic analysis of last of 5 solos.
+Beginning Vilamba Sarvalaghu generation..
+
+Looking at the 5 solos I have, it is clear that approaches vary but there are some things in common.
+
+Some solos (mani, raghu) have very obvious grooves/motifs etc from the start, while others (sankaran, murthy) play 
+more generic grooves for the tala, there is repetition of ideas, but it's less straightforward.
+
+Some solos have constant phrase durations (sankaran)
+
+Thoughts:
+
+Micro level 
+	they are all very similar : focus on 2 pulses per beat. 
+Macro level, 
+	they always feature some small variations 
+	suffixes are common
+
+Had to fix problems with accessing routines from KonaWord and KonaTime. Was overriding getter methods using the variable name 
+within the method e.g. getter rout { rout = 4+5, ^rout} was messing things up, didn't declare new variables.
+Testing Statistic based generation of Vilamba Sarvalaghu, beats 1-4 of adi tala (2 kalai, so 8 beats) 	
+ Data used :
+Adi Tala 2 kallai, first 4 beats, each set of 4 represents 1 beat
+y = [
+	100, 37.5, 87.5, 68.75, 
+	93.75, 12.5, 100, 25,
+
+	100, 80, 100, 13,
+	100, 13, 100, 6,
+
+	100, 0, 73, 53,
+	100, 0, 100, 22,
+
+	89, 66, 100, 22,
+	100, 30, 80, 30 
+];                                                                        
+
+07/02/09
+
+Read Sangeetha Akshara Hridaya, replaced gatiexpansion in KonaWord with karve, which defines how many gati a jati is worth
+
+Transcribed grooves from Ultimate Guru DVD for examples of different Gatis, and non-adi talas
+	Problems...
+		Only tisra gati example is played in groupings of two ([1,2],[3,1],[2,3],[1,2],[3,1],[2,3])
+			This is fine, and shows variety, but no example of 123 123 123 123
+
+Considering just working with tanis that start in chatusra, can't find many/any examples of those that don't.
+	Possibly limit to adi tala, would make life easier.
+	
+08/02/09
+
+Big problems....
+Generating 6+ KonaWords seemed to crash SCLang
+Often get grey count errors
+
+sometimes will generate but word will be 
+3.6351256066833e-273
+or similar.
+Once this happens, it happens to all new instances.
+
+Trying to play a KonaTime routine would only play once.
+
+09/02/09
+Solved problem, was because KonaWord had [slot], thanks Jordanous for pointing out I was doing something clever without realising it 
+
+Finally get to properly test Trichy Sankaran statistical model.
+Results are ok, it feels that context wasn't properly taken into account.'
+	These results might be suitable for mid/late Vilamba, but not introduction, as they are quite busy 
+		Although, some people do start this busy, while others are much more sparse
+
+The flaw of repeated generation for many cycles is that there is little underlying theme, just statistical matching.
+	Going to try an approach of starting with a basic pattern and then mutating it.
+	
+12/02/09
+
+Continuing work on Vilamba Sarvalaghu, alternating with work on moras.
+
+Tried phrase length generation on a tala of 12 beats, gati 4, tempo 120, (partition 40) partitioning crashed SC... 
+Trying to implement ZS2 Algorithm in the hope that it will be faster.
+Successfully implemented ZS2. Made modifications to allow maximum and minimum values to be set.
+
+Now working on Moras
+
+Improved random Mora method. 
+As I am unable to find instances where a gap duration is a fractional value of the statement (e.g. s = 5, g = 3.5), 
+i.e they are generally made up of different numbers of jatis of the same duration. A .floor method is used to get a round number
+for the gap duration, and an offset that precedes the mora is generated if there are unused beats from the given duration.
+Mora generation now takes into account Nelsons (2008 p 23) observation that if a mora statement is shorter than 5 pulses the gap will nearly always be at least
+2 pulses
+
+13/02/09
+
+Resuming work on VSL. Now testing ZS2 for generation of partitions.
+Turns out that it's not the ZS algorithms running slowly in SC. It's the time needed to add the results to the lists.
+Maybe calculating P(n) (number of partitions) and creating an array of that size rather than using a List would be more efficient.
+Turns out it's NOT adding it to the list, but the permutations that takes ages.
+Changed the way minimum values were taken care of. Instead of using two loops, items are only added if all parts are > min
+Divided allParts into two methods, allParts and allPerms. allPerms takes care of permutations.
+
+
+Worked on getting playback functional again. Re-recorded syllables, added more to the vocab and re-did scpv analysis.
+
+16/02/09
+
+PV Analysis problem solved, separated various actions into different loops and gave enough time to analysis synth.
+Now need to incorporate time stretching.
+Time stretching achieved using 3.min(1/speed) for the rate 
+
+VSL.
+One problem with current phrase length generation is that it cuts at absolute values, e.g. 119 bpm gati 4, gives 16 jati phrase
+while 120 bpm gives 32 jati phrase, maybe some kind of blend would be better....
+
+18/02/09
+
+migrated remaining manipulation methods from KonaWord to KonaGenerator
+Adapted atDensity method to work for KonaTime and KonaWord
+
+19/02/09
+
+Wrote combine method which creates new KonaItems with the number of jatis of a given collection (e.g. ta ki ta + ta ka returns da di gi na dom)
+Worked on algorithm to search for adjacent identical values in an array and combine them
+	 (e.g. [2,2,2,3,3] becomes [6,6]) 
+This will be used stochastically for sarvalaghu generation
+
+27/02/09
+
+Included combine method in SarvaPhrase generation
+Updated postWord methods to print evenly e.g
+[ Ta      , Ka       ]
+[ 0.5     , 0.5      ]
+[ [ 1, 8 ], [ 1, 8 ] ]
+
+Tweaked 
+
+28/02/09
+
+Working on vilamba sl...
+Implemented new method removeThoseContaining that removes any partitions that contain a given value/set of values.
+Weights can be supplied for the values.
+
+Had a bug with combination method, if  all elements were combined earlier than (1 before the end) then extra items appeared
+Fixed now
+
+
+01/03/09
+
+Fixed .play methods on KonaTime and KonaWord
+Added play to KonaTani
+Created a Tala clapping routine usng Thor's clapping synthdef.
+Problems with trying to play Tala + Tani routine's in sync
+
+02/03/09
+Working on manipulation methods.
+Fixed Density method, wasn't functioning properly
+Working on extend jati method, to extend a particular jati in a word e.g. takadimi with [1] extended becomes ta ta - ta
+	Need to have an exception for this example so that it becomes ta lan - ga 
+Extend Jati method complete
+
+Working on Mute jati method
+Completed mute jati method
+
+Fixed bug in vSarvaPhrase method where 10% of the time it would bugger up.
+
+Quickly implemented densityJati method to alter the density of a jati within a KonaWord
+
+Working on a phraseMutation method that works through the elements of a given phrase and potentially mutates them using the recently made methods.
+
+04/03/09
+
+Fixed routing issue thanks to nick.
+
+Interesting problem encountered when working on automation of atDensity method.
+Difficult to determine what the maximum speed should be. 
+Carnatic music talks of having 4 speeds (prakash), but obviously this is dependant on tempo.
+E.g. @ 160 bpm it's hard to play at 4th speed
+This is also dependant on the player. 
+Human haptic rates can be used, but alternative techniques (chunking) can be used to bypass these. 
+
+Current formula is  speed/(0.5/col[i].gati). E.g. a 4,4,1 KonaWord (Ta Ka Di Mi) can go up to 4,4,0.5.
+This seems to work reasonably well, although creates discrepencies. 
+	E.g. At the same tempo 9 can go up to 0.055555555555556 while 4 can go to 0.125 
+	
+	
+05/03/09	
+
+Fixed all mutation methods to work with mutatePhrase automation
+Could add recursion.. need to test on materials to judge output
+
+06/03/09
+
+Added a permutePhrase method which can return either a specified or random permuation of a KonaTime
+
+Working on randomMora method, updating to handle KonaItems.
+Solving the problem of minimum gap sizes.
+Looking for maximum gap sizes.
+Largest in a single mora is 4.
+Found a 6 in a compound mora with statements of 22
+Found a 8 with statements of 16. But an Arudi rather than mora.
+Nelson gives examples (not quotations) with long gap durations
+Might not give an upper boundary
+
+Mora Gap minimum is always 0 except in cases where statement<5
+	However, a gap of 1 is rare/not found.
+	One example found in mani solo, but it's a gap of 1 caturasra gati, and the statement is exclusively 1/2 or 1/4 chatusra gatis
+		So relatively it is 2.
+		
+	Going to rule out gap of 1
+	In the instance that the statement has density doubled, the gap could technically be 1 
+		e.g Ta Ka Di Mi Ta Ka Ju Na (0.125) Ta (0.25)
+	Going to accept that this will be missed out on (ish)
+		Will include a % chance to recalculate Mora with 2*duration 0.5*gati
+
+Moras generated that are just 3 * konaword == DULL
+	Need to make mutation 100% for them...
+Same for moras that have same statement and gap length 
+	e.g. ta ta ta ta ta all 0.5
+
+10/03/09
+
+Fixing bugs in randomMora method.
+Splitting into sub-methods, moraStatement etc etc
+Might be able to make one moraMaterial method with probabilities passed in...
+Split Mora generation into sub methods
+Also split mutatePhrase methods into sub-methods, each acting as an automated version of their corresponding methods.
+
+16/04/09
+
+Wrote moraFrom method, builds moras from a given statement, optionally give max duration, gap, offset etc
+
+10/04/09 
+Added accents to KonaWord + KonaTime
+KonaWord given .matras (jatis*karve);
+KonaTime given .greatestJatis method, returns the item with the greatest number of jatis (recursive for KonaTimes)
+Added speed and gati methods to KonaTime for KonaGenerator compatibility.
+KonaGenerator.atDensity newKarve now given .min(aKonaItem.matras) to size increase;
+KonaGenerator.randomAtDensity can now handle KonaWords; for minimum size uses .jatis for KonaWords and .greatestJatis for KonaTimes.
+	Also a big change to the way possible values are calculated. Gone is the complicated method, now the max and min are calculated and all possible values calculated from them, using multiples of the gati.
+
+10/04/09 
+Fixed routines in KonaTani, now can use .add, .play, and .stop. Resets correctly
+
+10/04/09 
+Changes to randomExtendJati. Now supports KonaTimes. Loops through objects with a 1/size chance of randomly extending their jati, chance is halved if successful. Returned in a KonaTime.
+Changes to randomMuteJati. Now supports KonaTime. Same as randomextendjati. half the chance though.
+Same deal with randomDensityJati. Except that recursion has been added, but not for KonaTime items.
+
+11/04/09 
+
+Improved weights in mora statement generation.
+Split vSarvaPhrase into vSarvaPhraseAuto, which calls vSarvaPhraseLength. Now vSarvaPhrase can be called with a manual phrase Dur.
+Re-written moraOffset.
+Now if dur > 2*gati, uses vSarvaPhrase, if >1*gati uses 1 syllable word. Otherwise same.
+Added word to KonaWord.val, to distinguish ta 0.25 and - 0.25
+Changed combine to handle combinations of rests (used to turn into articulated syllables) and one syllable + rests.
+
+12/04/09 
+RandomMora:	StateMin is now (1/5) of duration is there is a gap, and 1/2.85 if there isn't.
+RandomPerm:	Now simply chooses a number between 0 and partition.size.factorial and returns that permutation.
+allPartitions:
+	Now reads from stored files for numbers > 40. 
+	Also includes an option for max no. unique parts. More efficient than removeGreaterThan, but won't work for numbers > 40. So removeGreaterThan is kept.
+randomMora: Efficiency issues now sorted :D
+Created moraFrom method. Takes a statement + optional duration, gap, offset.
+Fixing partitionWord, use of jatis*karve back to just jatis.
+Fixed removeThoseContaining, removed possibility of returning an empty array (all items succesfully removed).
+randomMora now split into randomMoraValues method for calculating values.
+
+17/04/09
+
+Fixes to morastatement, wasn't mutating for instances < 9.
+fixes to samaCompound mora method, removing nils passed to morapart methods.
+Changing moraStatement, will never be just one syllable.
+Fixed bugs with randomSamaCompoundMora. Incorrect calculation of offset. Now working for large values, proceeding with testing of lower values where density alteration takes place.
+randomMoraValues alteration: density alteration won't occur if karve will drop below 0.5
+randomMora and randomMoraValues now have boolean gap and offset args.
+Changed mora methods (moraOffset, moraGap, moraStatement) to take duration in matras rather than number of jatis.
+Fixed bug in randomSamaCompoundMora with density alterations: added a check to vSarvaPhrase, if a float is passed in, the .floor is created, and a single Ta with the remainder added.
+Wrote addSuffix method. Given a phrase it will return a new phrase with the last quarter into a suffix by increasing the density.
+Added karve argument to partsToWords.
+Fixed bug with partsToWords not taking karve into account.
+Fixed bug with addSuffix not working with konaWords properly.
+Wrote and bug fixed fillOut method. Will 'fill out' uneven words for density alteration, e.g.  Ta 0.75 becomes ta ki ta 0.25
+Wrote makePostMora. Adds a 1 beat hit to the beginning of a phrase, for phrases preceded by a mora
+randomMuteJati made to work in reverse, so that first elements less likely to be muted
+reverse method overridden in KonaTime
+vSarvaPhrase max reduced to gati, including randomMuteJati
+Transcribed some basic phrases
+Worked on section generation, with basic structure.
+Fixed bug in randomSamaCompoundMora, wrong karves being used.
+Written basicStructure. a mini tani, heh.
+Guarantees in automated methods (randomAtDensity etc) that if no elements are altered, one will be.
+Fixed rounding error bug in fillOut 
+Discovered how to loop material infinitely, accompaniment style.
+Transcribed skeleton phrases from real sources
+
+20/04/09 
+
+Changed KonaTani:
+No longer takes a duration.
+Now takes Tala as an array of strings e.g. ["I4", "O", "O"]
+Recorded a few examples into Logic via Jack + MIDI
+Changed KonaTani talas. "U" can now be "U1" for a quaver clap
+added "W" and "R" for wave and rest respectively.
+
+21/04/09
+
+Created computer examples with first runs of necessary methods and transcribed human examples. Played all as MIDI into Logic.

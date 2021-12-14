@@ -1,0 +1,118 @@
+	/* ====================== */
+	/* = Analysis Questions = */
+	/* ====================== */
+
+	//Structure / Themes
+		-Are there themes that run throughout tanis?
+
+	//Kannakus
+		-Can only land on the Eduppu
+				Even though the	important formal cadences-moras, k6rvais, etc.-must resolve at the
+				eduppu, most of the sarvalaghu pattems begin and change with the
+				beginnings of beats. The eduppu, then, is usually invoked during a solo only
+				when something structurally significant is going on.
+		//Moras
+			-Do mora gaps always start with an open sound (tom, tam etc);
+		//Korvais
+			-Find examples and structures
+
+
+Coding To Do
+
+	/* ============== */
+	/* = Priorities = */
+	/* ============== */
+
+		Structure
+			3 Sections
+				vilamba kala
+				madhyama kala
+				Ending Section
+			Themes
+		Sarvalaghu
+
+		Kannakus
+			Korvai
+			Mora
+				Compound
+			Others
+		Output
+			Open / Closed Sounds
+
+	/*
+		KonaGenerator
+		-Weighted selection of material!
+
+	*/
+
+	/*
+		KonaTani
+
+		Tala playback doesn't account for Chapu talas atm...
+		Output Tala with full name.
+		Input with short name? p298 History of Carnatic Music
+	*/
+
+
+	/*
+		Kona Word TODO
+		-Printing output to be useful to ethnos....
+		-Fundamental change! - Still do this?
+			-Make is possible to supply the syllables to play,
+				-The no. jatis doesn't determine the syllables
+				-This makes it easier to work with open sounds or phrases like Ta - Din which is a 3 (ta ki tha);
+					-Still have defaults, maybe a default for open and closed
+				-Keeps T Lan g as 1234 12(3)4
+			-Potential confusion... Ta 0.5 could be [0.25, (0.25)] or 0.5
+				-Is this really a problem or just potential duplication?
+		-Change all generations of KonaWords to include synth
+
+		-whether a sound is open or closed
+		-Method for adapting a phrase to a longer length.
+			E.g. Takadimi Takajuno fills 2, need to fill 1.5 = takadimi taka		or Takadimi Takajuno fills 2, need 3. Gives takadimi taka juna taka
+
+	*/
+
+	/*
+		KonaTime TODO
+		-change all generations of konawords to include synths
+		-Method that returns a portion of time in a new tala
+			-Would have to call methods in sub-units, adapting to new tala
+			-Would be useful as educational tool
+			-May be useful if keeping a database of material, easily adapt for other talas
+	*/
+
+Structure
+
+Synth Def Class?
+		Recieves synth messages
+		Takes care of whether a sound should be open or closed
+
+TaniAvartanam Class
+	args:	Tempo
+			Tāḷa (+ Kālai)
+			Duration
+			Gati
+			Gati(s) to change to
+	If any args aren't supplied they are selected using weights
+
+	Will store generated phrases for use throughout
+
+	Defines the structure
+			Vilamba Kāla
+			madhyama kāla
+			ending section
+		Each section has it's own class?
+			Or when 'entering' a new section, values in the tani class are changed.
+		Section or Tani class will determine when kannakus will be used
+
+Time Class
+	Represents some time.
+
+	args	tāḷa (kālai)
+
+	vars		number of beats
+				number of talas
+
+KonaWord Class
+	Represents one word e.g. takadimi

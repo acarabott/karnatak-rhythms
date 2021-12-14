@@ -1,0 +1,151 @@
+10/04/09 1:37 PM
+Added accents to KonaWord + KonaTime
+
+KonaWord given .matras (jatis*karve);
+KonaTime given .greatestJatis method, returns the item with the greatest number of jatis (recursive for KonaTimes)
+
+Added speed and gati methods to KonaTime for KonaGenerator compatibility.
+KonaGenerator.atDensity newKarve now given .min(aKonaItem.matras) to size increase;
+KonaGenerator.randomAtDensity can now handle KonaWords; for minimum size uses .jatis for KonaWords and .greatestJatis for KonaTimes.
+	Also a big change to the way possible values are calculated. Gone is the complicated method, now the max and min are calculated and all possible values calculated from them, using multiples of the gati.
+
+10/04/09 4:16 PM
+Fixed routines in KonaTani, now can use .add, .play, and .stop. Resets correctly
+
+10/04/09 5:32 PM
+Changes to randomExtendJati. Now supports KonaTimes. Loops through objects with a 1/size chance of randomly extending their jati, chance is halved if successful. Returned in a KonaTime.
+
+Changes to randomMuteJati. Now supports KonaTime. Same as randomextendjati. half the chance though.
+
+Same deal with randomDensityJati. Except that recursion has been added, but not for KonaTime items.
+
+11/04/09 12:30 PM
+Improved weights in mora statement generation.
+Split vSarvaPhrase into vSarvaPhraseAuto, which calls vSarvaPhraseLength. Now vSarvaPhrase can be called with a manual phrase Dur.
+
+Re-written moraOffset.
+Now if dur > 2*gati, uses vSarvaPhrase, if >1*gati uses 1 syllable word. Otherwise same.
+
+Added word to KonaWord.val, to distinguish ta 0.25 and - 0.25
+
+Changed combine to handle combinations of rests (used to turn into articulated syllables) and one syllable + rests.
+
+
+12/04/09 10:30 AM
+
+RandomMora:
+
+	StateMin is now (1/5) of duration is there is a gap, and 1/2.85 if there isn't.
+	
+RandomPerm:
+
+	Now simply chooses a number between 0 and partition.size.factorial and returns that permutation.
+
+5:27 PM
+
+allPartitions:
+	Now reads from stored files for numbers > 40. 
+	Also includes an option for max no. unique parts. More efficient than removeGreaterThan, but won't work for numbers > 40. So removeGreaterThan is kept.
+	
+randomMora:
+	Efficiency issues now sorted :D
+	
+16/04/09 12:15 PM
+
+Created moraFrom method. Takes a statement + optional duration, gap, offset.
+
+8:20 PM
+
+Fixing partitionWord, use of jatis*karve back to just jatis.
+
+11:42 PM
+
+Fixed removeThoseContaining, removed possibility of returning an empty array (all items succesfully removed).
+randomMora now split into randomMoraValues method for calculating values.
+
+17/04/09 12:13 PM
+
+Fixes to morastatement, wasn't mutating for instances < 9.
+fixes to samaCompound mora method, removing nils passed to morapart methods.
+
+Changing moraStatement, will never be just one syllable.
+
+10:47 PM
+Fixed bugs with randomSamaCompoundMora. Incorrect calculation of offset. Now working for large values, proceeding with testing of lower values where density alteration takes place.
+
+randomMoraValues alteration: density alteration won't occur if karve will drop below 0.5
+
+randomMora and randomMoraValues now have boolean gap and offset args.
+
+Changed mora methods (moraOffset, moraGap, moraStatement) to take duration in matras rather than number of jatis.
+
+Fixed bug in randomSamaCompoundMora with density alterations: added a check to vSarvaPhrase, if a float is passed in, the .floor is created, and a single Ta with the remainder added.
+
+18/04/09 11:51 AM
+
+Wrote addSuffix method. Given a phrase it will return a new phrase with the last quarter into a suffix by increasing the density.
+
+2:17 PM
+Added karve argument to partsToWords.
+
+3:05 PM
+Fixed bug with partsToWords not taking karve into account.
+Fixed bug with addSuffix not working with konaWords properly.
+
+7:45 PM
+Wrote and bug fixed fillOut method. Will 'fill out' uneven words for density alteration, e.g.  Ta 0.75 becomes ta ki ta 0.25
+
+9:51 PM
+
+Wrote makePostMora. Adds a 1 beat hit to the beginning of a phrase, for phrases preceded by a mora
+
+11:07 PM
+
+randomMuteJati made to work in reverse, so that first elements less likely to be muted
+reverse method overridden in KonaTime
+vSarvaPhrase max reduced to gati, including randomMuteJati
+
+11:57 PM
+
+Transcribed some basic phrases
+
+19/04/09 
+
+Worked on section generation, with basic structure.
+
+2:08 PM
+
+Fixed bug in randomSamaCompoundMora, wrong karves being used.
+
+4:40 PM
+
+Written basicStructure. a mini tani, heh.
+
+5:24 PM
+
+Guarantees in automated methods (randomAtDensity etc) that if no elements are altered, one will be.
+
+Fixed rounding error bug in fillOut 
+
+10:35 PM
+Discovered how to loop material infinitely, accompaniment style.
+
+Transcribed skeleton phrases from real sources
+
+
+20/04/09 9:08 AM
+
+Changed KonaTani:
+No longer takes a duration.
+Now takes Tala as an array of strings e.g. ["I4", "O", "O"]
+
+Recorded a few examples into Logic via Jack + MIDI
+
+11:34 PM
+
+Changed KonaTani talas. "U" can now be "U1" for a quaver clap
+added "W" and "R" for wave and rest respectively.
+
+21/04/09
+
+Created computer examples with first runs of necessary methods and transcribed human examples. Played all as MIDI into Logic.
