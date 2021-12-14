@@ -1,4 +1,6 @@
 /*
+	These are the examples used for a musical Turing Test. Made up of transcribed phrases from real players, and generated phrases
+
 	TODO 
 	correct strokes in logic
 		For vikku examples get strokes from DVD.0***
